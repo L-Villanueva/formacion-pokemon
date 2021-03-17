@@ -10,6 +10,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.pokemon.R
 import com.example.pokemon.commons.BaseActivity
 import com.example.pokemon.home_activity.ui.home.HomeViewModel
+import com.example.pokemon.ui.home.HomeViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeActivity : BaseActivity() {
