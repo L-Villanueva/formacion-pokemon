@@ -1,4 +1,8 @@
 package com.example.pokemon.commons
 
-class BaseActivity {
+import androidx.appcompat.app.AppCompatActivity
+
+abstract class BaseActivity: AppCompatActivity() {
+
+
 }

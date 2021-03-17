@@ -1,4 +1,6 @@
 package com.example.pokemon.commons
 
-class BaseViewModel {
+import androidx.lifecycle.ViewModel
+
+abstract class BaseViewModel: ViewModel() {
 }
