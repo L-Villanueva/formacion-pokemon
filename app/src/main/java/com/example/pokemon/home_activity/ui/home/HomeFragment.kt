@@ -1,4 +1,4 @@
-package com.example.pokemon.ui.home
+package com.example.pokemon.home_activity.ui.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,23 +6,24 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.example.pokemon.R
+import com.example.pokemon.home_activity.ui.home.HomeViewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class HomeFragment : Fragment() {
 
-    private lateinit var homeViewModel: HomeViewModel
 
+    private val presenter : HomeViewModel by sharedViewModel()
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        homeViewModel =
-                ViewModelProvider(this).get(HomeViewModel::class.java)
+
         val root = inflater.inflate(R.layout.fragment_home, container, false)
-        homeViewModel.text.observe(viewLifecycleOwner, Observer {
+        presenter.text.observe(viewLifecycleOwner, {
         })
+
         return root
     }
 }
