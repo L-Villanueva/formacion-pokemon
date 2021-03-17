@@ -1,4 +1,4 @@
-package com.example.pokemon.ui.notifications
+package com.example.pokemon.home_activity.ui.notifications
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,10 +9,14 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.pokemon.R
+import com.example.pokemon.commons.BaseFragment
 
-class NotificationsFragment : Fragment() {
+class NotificationsFragment : BaseFragment() {
 
     private lateinit var notificationsViewModel: NotificationsViewModel
+
+    override fun loadObservers() {
+    }
 
     override fun onCreateView(
             inflater: LayoutInflater,
