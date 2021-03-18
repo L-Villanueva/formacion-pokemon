@@ -1,14 +1,13 @@
-package com.example.pokemon.home_activity.ui.profile
+package com.example.pokemon.home_activity.ui.profile.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.lifecycle.Observer
-import com.example.pokemon.R
 import com.example.pokemon.commons.BaseFragment
 import com.example.pokemon.databinding.ProfileFragmentBinding
+import com.example.pokemon.home_activity.ui.profile.vm.ProfileViewModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class ProfileFragment : BaseFragment() {

@@ -1,4 +1,4 @@
-package com.example.pokemon.home_activity.ui.profile
+package com.example.pokemon.home_activity.ui.profile.vm
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
