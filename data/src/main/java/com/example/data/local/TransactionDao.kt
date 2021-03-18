@@ -6,15 +6,15 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.data.commons.Constants.TABLE_TRANSACTIONS
-import com.example.data.models.TransactionDTO
+import com.example.data.models.PokemonDTO
 
 @Dao
 interface TransactionDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun save(transactions: List<TransactionDTO>)
+    fun save(transactions: PokemonDTO)
 
     @Query("SELECT * FROM `$TABLE_TRANSACTIONS`")
-    fun load(): LiveData<List<TransactionDTO>>
+    fun load(): LiveData<List<PokemonDTO>>
 
     @Query("DELETE FROM `$TABLE_TRANSACTIONS`")
     fun deleteAll()

@@ -9,18 +9,5 @@ import kotlinx.coroutines.launch
 
 class SplashViewModel(private val repository: TransactionRepository): BaseViewModel() {
 
-    fun fetchTransactions(){
-        _isLoading.value = true
-        viewModelScope.launch (Dispatchers.IO) {
-            when (val result = repository.getTransactionsAndSave()){
-                is ResultHandler.Success -> {
-                    showMessage(result.data)
-                }
-                else -> {
-                    setShowError(result)
-                }
-            }
-            _isLoading.postValue(false)
-        }
-    }
+
 }

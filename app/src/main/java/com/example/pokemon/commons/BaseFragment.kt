@@ -8,6 +8,8 @@ abstract class BaseFragment: Fragment() {
 
     //Siempre tendremos observadores en los fragment asi que los configuramos en el base y luego heredamos de el
 
+    var errorDialog : ErrorDialog? = null
+
     abstract fun loadObservers()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

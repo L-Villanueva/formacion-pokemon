@@ -3,13 +3,13 @@ package com.example.data.repositories
 import androidx.lifecycle.LiveData
 import com.example.data.commons.BaseRepository
 import com.example.data.local.BankDatabase
-import com.example.data.models.TransactionDTO
+import com.example.data.models.PokemonDTO
 import com.example.data.remote.ITransactionAPI
 import com.example.data.remote.ResultHandler
 
 class TransactionRepository(private val api: ITransactionAPI, private val bankDB: BankDatabase): BaseRepository() {
 
-    val mTransactions: LiveData<List<TransactionDTO>> by lazy {
+    val mTransactions: LiveData<List<PokemonDTO>> by lazy {
         bankDB.transactionDao().load()
     }
 
@@ -21,7 +21,7 @@ class TransactionRepository(private val api: ITransactionAPI, private val bankDB
                 //Sort the list
                 result.data.let {
 
-                    val sortedList = result.data.toMutableList()
+                    val sortedList = result.data
                     //Save data in Room
                     bankDB.transactionDao().save(sortedList)
                 }

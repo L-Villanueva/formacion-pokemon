@@ -4,10 +4,13 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.example.data.commons.Constants.DATABASE_NAME
-import com.example.data.models.TransactionDTO
+import com.example.data.models.Converters
+import com.example.data.models.PokemonDTO
 
-@Database(entities = [TransactionDTO::class], version = 1)
+@Database(entities = [PokemonDTO::class], version = 1)
+@TypeConverters(Converters::class)
 abstract class BankDatabase: RoomDatabase() {
     abstract fun transactionDao(): TransactionDao
 

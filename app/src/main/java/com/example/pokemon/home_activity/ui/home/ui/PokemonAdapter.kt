@@ -4,10 +4,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.data.models.TransactionDTO
+import com.example.data.models.PokemonDTO
 import com.example.pokemon.databinding.PokemonItemBinding
 
-class PokemonAdapter(private var mValues: List<TransactionDTO>?): RecyclerView.Adapter<PokemonAdapter.ViewHolder>() {
+class PokemonAdapter(private var mValues: List<PokemonDTO>?): RecyclerView.Adapter<PokemonAdapter.ViewHolder>() {
 
     private lateinit var binding: PokemonItemBinding
 
@@ -18,7 +18,7 @@ class PokemonAdapter(private var mValues: List<TransactionDTO>?): RecyclerView.A
 
     override fun onBindViewHolder(holder: PokemonAdapter.ViewHolder, position: Int) {
         mValues?.let {
-            holder.tvName.text = it[position].description
+            holder.tvName.text = it[position].name
         } ?: clearList()
     }
 
@@ -31,7 +31,7 @@ class PokemonAdapter(private var mValues: List<TransactionDTO>?): RecyclerView.A
     }
 
     private fun clearList() {
-        val emptyList = listOf<TransactionDTO>()
+        val emptyList = listOf<PokemonDTO>()
         mValues = emptyList
         notifyItemRangeRemoved(0, 0)
     }
