@@ -8,22 +8,26 @@ import android.widget.TextView
 import androidx.lifecycle.Observer
 import com.example.pokemon.R
 import com.example.pokemon.commons.BaseFragment
+import com.example.pokemon.databinding.ProfileFragmentBinding
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class ProfileFragment : BaseFragment() {
 
     private val presenter: ProfileViewModel by sharedViewModel()
+    private var _binding: ProfileFragmentBinding? = null
+    private val binding get() = _binding!!
 
     override fun loadObservers() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        val root = inflater.inflate(R.layout.fragment_notifications, container, false)
-        val textView: TextView = root.findViewById(R.id.text_notifications)
+        _binding = ProfileFragmentBinding.inflate(inflater, container, false)
+        val view = binding.root
         presenter.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
+            binding.textNotifications.text = it
         })
-        return root
+
+        return view
     }
 }
