@@ -13,11 +13,11 @@ class Converters {
     }
     @TypeConverter
     fun fromSprites(sprites: Sprites): String? {
-        return sprites.frontDefault
+        return sprites.front_default
     }
     @TypeConverter
     fun toSprites(name: String?): Sprites{
-        return Sprites(frontDefault = name)
+        return Sprites(front_default = name)
     }
     @TypeConverter
     fun fromPokemonDTO(pokemonDTO: PokemonDTO): String{

@@ -37,7 +37,7 @@ android {
             buildConfigField "boolean", "mock", "true"
         }
         pro {
-            buildConfigField "String", "BaseURL", '"https://pokeapi.co/docs/v2#pokemon"'
+            buildConfigField "String", "BaseURL", '"https://pokeapi.co/"'
             buildConfigField "boolean", "mock", "false"
         }
     }

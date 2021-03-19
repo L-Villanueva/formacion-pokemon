@@ -5,7 +5,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.data.models.PokemonDTO
+import com.example.pokemon.R
 import com.example.pokemon.databinding.PokemonItemBinding
+import com.squareup.picasso.Picasso
 
 class PokemonAdapter(private var mValues: List<PokemonDTO>?): RecyclerView.Adapter<PokemonAdapter.ViewHolder>() {
 
@@ -19,6 +21,11 @@ class PokemonAdapter(private var mValues: List<PokemonDTO>?): RecyclerView.Adapt
     override fun onBindViewHolder(holder: PokemonAdapter.ViewHolder, position: Int) {
         mValues?.let {
             holder.tvName.text = it[position].name
+            Picasso.get()
+
+                .load(it[position].sprites?.front_default)
+                .resize(200,200)
+                .into(holder.image);
         } ?: clearList()
     }
 
@@ -28,6 +35,7 @@ class PokemonAdapter(private var mValues: List<PokemonDTO>?): RecyclerView.Adapt
 
     inner class ViewHolder (mView: View): RecyclerView.ViewHolder(mView){
         val tvName = binding.tvPokemonName
+        val image = binding.ivPokemonSprite
     }
 
     private fun clearList() {

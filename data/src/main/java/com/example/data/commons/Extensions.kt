@@ -1,4 +1,7 @@
 package com.example.data.commons
 
-class Extensions {
+
+fun String.clean (): String {
+
+    return this.drop(19)
 }

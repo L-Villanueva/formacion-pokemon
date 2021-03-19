@@ -7,11 +7,11 @@ import com.example.data.commons.Constants
 @Entity(tableName = Constants.TABLE_TRANSACTIONS)
 
 data class PokemonDTO (
-    val baseExperience: Long? = null,
+    val base_experience: Long? = null,
     val height: Long? = null,
     @PrimaryKey val id: Long? = null,
-    val isDefault: Boolean? = null,
-    val locationAreaEncounters: String? = null,
+    val is_default: Boolean? = null,
+    val location_area_encounters: String? = null,
     val name: String,
     val order: Long? = null,
     val species: Species? = null,
@@ -25,14 +25,14 @@ data class Species (
 )
 
 data class Sprites (
-    val backDefault: String? = null,
-    val backFemale: String? = null,
-    val backShiny: String? = null,
-    val backShinyFemale: String? = null,
-    val frontDefault: String? = null,
-    val frontFemale: String? = null,
-    val frontShiny: String? = null,
-    val frontShinyFemale: String? = null,
+    val back_default: String? = null,
+    val back_demale: String? = null,
+    val back_shiny: String? = null,
+    val back_shiny_female: String? = null,
+    val front_default: String? = null,
+    val front_female: String? = null,
+    val front_shiny: String? = null,
+    val front_shiny_female: String? = null,
 
 )
 
