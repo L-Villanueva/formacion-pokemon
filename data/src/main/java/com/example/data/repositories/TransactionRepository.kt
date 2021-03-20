@@ -23,10 +23,10 @@ class TransactionRepository(private val api: ITransactionAPI, private val bankDB
             is ResultHandler.Success -> {
 
                 result.data.results?.let { sortedList ->
-                    sortedList.map {
-                        Log.d("aca", it.url.clean())
+                    sortedList.forEach {
+                        Log.d("urlPokemon", it.url.clean())
                         when (val resultPokemon = getPokemonAndSave(it)){
-                            is ResultHandler.Success -> return@map
+                            is ResultHandler.Success -> return@forEach
                             else -> return resultPokemon
                         }
                     }
@@ -44,6 +44,7 @@ class TransactionRepository(private val api: ITransactionAPI, private val bankDB
         return when (val resultPokemonDTO = safeApiCall (call = { api.getPokemon(pokemon.url.clean()) } )) {
             is ResultHandler.Success -> {
                 resultPokemonDTO.data.let { pokemonResult ->
+                    Log.d("Pokemon", pokemonResult.toString())
                     bankDB.transactionDao().save(pokemonResult)
                 }
                 ResultHandler.Success("Successful update")

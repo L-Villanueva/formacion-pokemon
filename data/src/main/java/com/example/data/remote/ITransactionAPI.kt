@@ -9,6 +9,6 @@ import retrofit2.http.Path
 interface ITransactionAPI {
     @GET("{url}")
     suspend fun getPokemon(@Path("url") url : String): Response<PokemonDTO>
-    @GET("api/v2/pokemon/")
+    @GET("api/v2/pokemon/?limit=40")
     suspend fun getList(): Response<ListPokemon>
 }

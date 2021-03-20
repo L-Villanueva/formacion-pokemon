@@ -24,7 +24,6 @@ class SplashActivity: BaseActivity() {
         object: Thread(){
             override fun run(){
                 try{
-                    sleep(2000)
                 }catch (ie: InterruptedException){
                     ie.printStackTrace()
                 }finally {

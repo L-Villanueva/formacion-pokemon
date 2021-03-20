@@ -1,5 +1,6 @@
 package com.example.pokemon.home_activity.ui.home.ui
 
+import android.animation.Animator
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -20,6 +21,7 @@ class HomeFragment : BaseFragment() {
     private lateinit var adapter: PokemonAdapter
 
     override fun loadObservers() {
+
         presenter.showError.observe(viewLifecycleOwner,{
             errorDialog = activity?.let { activity ->
                 ErrorDialog(
@@ -34,8 +36,7 @@ class HomeFragment : BaseFragment() {
             errorDialog!!.setCancelable(false)
             errorDialog!!.show()
         })
-        presenter.text.observe(viewLifecycleOwner, {
-        })
+
         presenter.transactionsList.observe(viewLifecycleOwner, {
             if (it.isNullOrEmpty()){
                 presenter.fetchTransactions()
@@ -45,10 +46,19 @@ class HomeFragment : BaseFragment() {
             binding.recyclerView.adapter = adapter
         })
 
+        presenter.isLoading.observe(viewLifecycleOwner,{
+            if (it) {
+                binding.animationView.visibility = View.VISIBLE
+                binding.recyclerView.visibility = View.GONE
+            } else {
+                binding.animationView.visibility = View.GONE
+                binding.recyclerView.visibility = View.VISIBLE
+            }
+        })
+
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-
         _binding = HomeFragmentBinding.inflate(inflater, container, false)
         loadObservers()
         return binding.root
