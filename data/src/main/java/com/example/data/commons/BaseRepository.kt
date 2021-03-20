@@ -11,6 +11,7 @@ abstract class BaseRepository {
     suspend inline fun <T : Any> safeApiCall(call: () -> Response<T>): ResultHandler<T> {
 
         return try{
+
             val response = call.invoke()
             if (response.isSuccessful)
                 ResultHandler.Success(response.body()!!)

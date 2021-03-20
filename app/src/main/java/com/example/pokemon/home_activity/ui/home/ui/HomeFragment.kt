@@ -1,6 +1,5 @@
 package com.example.pokemon.home_activity.ui.home.ui
 
-import android.animation.Animator
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -38,8 +37,8 @@ class HomeFragment : BaseFragment() {
         })
 
         presenter.transactionsList.observe(viewLifecycleOwner, {
-            if (it.isNullOrEmpty()){
-                presenter.fetchTransactions()
+            if (it.isNullOrEmpty()) {
+                presenter.fetchPokemons()
             }
             binding.recyclerView.layoutManager = LinearLayoutManager(activity)
             adapter = PokemonAdapter(it)
@@ -49,16 +48,26 @@ class HomeFragment : BaseFragment() {
         presenter.isLoading.observe(viewLifecycleOwner,{
             if (it) {
                 binding.animationView.visibility = View.VISIBLE
+                binding.buttonNext.visibility = View.GONE
                 binding.recyclerView.visibility = View.GONE
             } else {
                 binding.animationView.visibility = View.GONE
+                binding.buttonNext.visibility = View.VISIBLE
                 binding.recyclerView.visibility = View.VISIBLE
             }
         })
 
+        presenter.nextUrl.observe(viewLifecycleOwner, {
+           it.let { url ->
+               binding.buttonNext.setOnClickListener {
+                   presenter.fetchPokemonsNext(url)
+               }
+           }
+        })
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
         _binding = HomeFragmentBinding.inflate(inflater, container, false)
         loadObservers()
         return binding.root

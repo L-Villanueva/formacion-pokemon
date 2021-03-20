@@ -6,6 +6,7 @@ import com.example.data.BuildConfig
 import com.example.data.local.BankDatabase
 import com.example.data.remote.ITransactionAPI
 import com.example.data.remote.interceptors.MockInterceptor
+import com.example.data.repositories.DataStoreRepository
 import com.example.data.repositories.TransactionRepository
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -54,4 +55,6 @@ fun provideBankDatabase(application: Application): BankDatabase {
     return BankDatabase.getInstance(application)
 }
 
-fun provideTransactionRepository(retrofit: ITransactionAPI, bankDB: BankDatabase): TransactionRepository = TransactionRepository(retrofit, bankDB)
+fun provideTransactionRepository(retrofit: ITransactionAPI, bankDB: BankDatabase, dataStoreRepository: DataStoreRepository): TransactionRepository = TransactionRepository(retrofit, bankDB, dataStoreRepository )
+
+fun provideDataStoreRepository(context: Context): DataStoreRepository = DataStoreRepository(context)
