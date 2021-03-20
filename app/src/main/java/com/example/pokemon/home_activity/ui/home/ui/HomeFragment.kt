@@ -37,6 +37,9 @@ class HomeFragment : BaseFragment() {
         presenter.text.observe(viewLifecycleOwner, {
         })
         presenter.transactionsList.observe(viewLifecycleOwner, {
+            if (it.isNullOrEmpty()){
+                presenter.fetchTransactions()
+            }
             binding.recyclerView.layoutManager = LinearLayoutManager(activity)
             adapter = PokemonAdapter(it)
             binding.recyclerView.adapter = adapter
@@ -48,8 +51,6 @@ class HomeFragment : BaseFragment() {
 
         _binding = HomeFragmentBinding.inflate(inflater, container, false)
         loadObservers()
-        val view = binding.root
-        presenter.fetchTransactions()
-        return view
+        return binding.root
     }
 }

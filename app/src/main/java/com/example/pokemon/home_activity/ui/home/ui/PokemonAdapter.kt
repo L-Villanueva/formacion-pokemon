@@ -22,7 +22,6 @@ class PokemonAdapter(private var mValues: List<PokemonDTO>?): RecyclerView.Adapt
         mValues?.let {
             holder.tvName.text = it[position].name
             Picasso.get()
-
                 .load(it[position].sprites?.front_default)
                 .resize(200,200)
                 .into(holder.image);

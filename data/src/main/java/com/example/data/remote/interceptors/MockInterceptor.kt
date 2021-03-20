@@ -15,14 +15,19 @@ class MockInterceptor(private val application: Application) : Interceptor {
     private val responseCodeError = 408
     private val responseSessionError = 401
     private val responseCodeOK = 200
+    private var firstTime = true
 
     override fun intercept(chain: Interceptor.Chain): Response {
         var res: Response? = null
 
         // TRANSACTIONS
-        if (res == null) res =
+        if (res == null && firstTime) {
+            firstTime = false
+            res = getMockResponse("api/v2/pokemon/", R.raw.transactions , chain, responseCodeOK)
+        } else {
+            res = getMockResponse("https://www.google.com/", R.raw.pokemon , chain, responseCodeOK)
+        }
 
-            getMockResponse("/transactions.json", R.raw.transactions , chain, responseCodeOK)
 
         return res ?: chain.proceed(chain.request())
     }
