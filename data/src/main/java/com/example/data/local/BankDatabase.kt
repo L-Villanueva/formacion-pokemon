@@ -12,7 +12,7 @@ import com.example.data.models.PokemonDTO
 @Database(entities = [PokemonDTO::class], version = 1)
 @TypeConverters(Converters::class)
 abstract class BankDatabase: RoomDatabase() {
-    abstract fun transactionDao(): TransactionDao
+    abstract fun transactionDao(): PokemonDao
 
     companion object{
         @Volatile

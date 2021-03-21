@@ -4,10 +4,10 @@ import android.app.Application
 import android.content.Context
 import com.example.data.BuildConfig
 import com.example.data.local.BankDatabase
-import com.example.data.remote.ITransactionAPI
+import com.example.data.remote.PokemonAPI
 import com.example.data.remote.interceptors.MockInterceptor
 import com.example.data.repositories.DataStoreRepository
-import com.example.data.repositories.TransactionRepository
+import com.example.data.repositories.PokemonRepository
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import okhttp3.Interceptor
@@ -48,13 +48,13 @@ fun provideRetrofit(httpClient: OkHttpClient, gson: Gson): Retrofit = Retrofit.B
     .addConverterFactory(GsonConverterFactory.create(gson))
     .build()
 
-fun provideTransactionApi (retrofit: Retrofit): ITransactionAPI = retrofit
-    .create(ITransactionAPI::class.java)
+fun providePokemonApi (retrofit: Retrofit): PokemonAPI = retrofit
+    .create(PokemonAPI::class.java)
 
 fun provideBankDatabase(application: Application): BankDatabase {
     return BankDatabase.getInstance(application)
 }
 
-fun provideTransactionRepository(retrofit: ITransactionAPI, bankDB: BankDatabase, dataStoreRepository: DataStoreRepository): TransactionRepository = TransactionRepository(retrofit, bankDB, dataStoreRepository )
+fun providePokemonRepository(retrofit: PokemonAPI, bankDB: BankDatabase, dataStoreRepository: DataStoreRepository): PokemonRepository = PokemonRepository(retrofit, bankDB, dataStoreRepository )
 
 fun provideDataStoreRepository(context: Context): DataStoreRepository = DataStoreRepository(context)

@@ -8,10 +8,10 @@ import com.example.data.commons.clean2
 import com.example.data.local.BankDatabase
 import com.example.data.models.PokemonDTO
 import com.example.data.models.Result
-import com.example.data.remote.ITransactionAPI
+import com.example.data.remote.PokemonAPI
 import com.example.data.remote.ResultHandler
 
-class TransactionRepository(private val api: ITransactionAPI, private val bankDB: BankDatabase, private val dataStoreRepository: DataStoreRepository): BaseRepository() {
+class PokemonRepository(private val api: PokemonAPI, private val bankDB: BankDatabase, private val dataStoreRepository: DataStoreRepository): BaseRepository() {
 
     val mTransactions: LiveData<List<PokemonDTO>> by lazy {
         bankDB.transactionDao().load()

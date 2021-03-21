@@ -9,9 +9,9 @@ import com.example.data.commons.Constants.TABLE_TRANSACTIONS
 import com.example.data.models.PokemonDTO
 
 @Dao
-interface TransactionDao {
+interface PokemonDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun save(transactions: PokemonDTO)
+    fun save(pokemons: PokemonDTO)
 
     @Query("SELECT * FROM `$TABLE_TRANSACTIONS`")
     fun load(): LiveData<List<PokemonDTO>>

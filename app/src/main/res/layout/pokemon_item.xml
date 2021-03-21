@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:layout_margin="2dp">
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="80dp"
         app:cardElevation="5dp">
@@ -19,6 +19,7 @@
             android:background="@color/white">
 
             <ImageView
+                android:src="@drawable/bulbasaur"
                 android:id="@+id/iv_pokemon_sprite"
                 android:layout_width="80dp"
                 android:layout_height="match_parent"
@@ -29,6 +30,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:text="bulbasaur"
                 android:id="@+id/tv_pokemon_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -40,6 +42,6 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
 </LinearLayout>

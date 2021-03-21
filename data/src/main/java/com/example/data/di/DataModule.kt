@@ -9,9 +9,9 @@ val dataModule = module {
     single { provideMockInterceptor(get()) }
     single { provideGson()}
     single { provideRetrofit( get(), get())}
-    single { provideTransactionApi( get() )}
+    single { providePokemonApi( get() )}
     single { provideBankDatabase( get() ) }
-    single { provideTransactionRepository( get(), get() , get())}
+    single { providePokemonRepository( get(), get() , get())}
     single { provideDataStoreRepository( get() ) }
 
 }

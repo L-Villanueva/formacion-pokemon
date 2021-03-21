@@ -8,8 +8,11 @@ import com.example.data.models.PokemonDTO
 import com.example.pokemon.R
 import com.example.pokemon.databinding.PokemonItemBinding
 import com.squareup.picasso.Picasso
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
-class PokemonAdapter(private var mValues: List<PokemonDTO>?): RecyclerView.Adapter<PokemonAdapter.ViewHolder>() {
+class PokemonAdapter(private var mValues: List<PokemonDTO>? , private val setOnClick: OnCLickListener): RecyclerView.Adapter<PokemonAdapter.ViewHolder>() {
 
     private lateinit var binding: PokemonItemBinding
 
@@ -21,10 +24,15 @@ class PokemonAdapter(private var mValues: List<PokemonDTO>?): RecyclerView.Adapt
     override fun onBindViewHolder(holder: PokemonAdapter.ViewHolder, position: Int) {
         mValues?.let {
             holder.tvName.text = it[position].name
-            Picasso.get()
-                .load(it[position].sprites?.front_default)
-                .resize(200,200)
-                .into(holder.image);
+            CoroutineScope(Dispatchers.Main).launch {
+                Picasso.get()
+                        .load(it[position].sprites?.front_default)
+                        .resize(200,200)
+                        .into(holder.image)
+            }
+            holder.itemView.setOnClickListener { _ ->
+                setOnClick.click(it[position])
+            }
         } ?: clearList()
     }
 
@@ -42,4 +50,8 @@ class PokemonAdapter(private var mValues: List<PokemonDTO>?): RecyclerView.Adapt
         mValues = emptyList
         notifyItemRangeRemoved(0, 0)
     }
+}
+
+interface OnCLickListener {
+    fun click(pokemon: PokemonDTO)
 }

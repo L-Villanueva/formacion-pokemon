@@ -4,18 +4,24 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.data.models.PokemonDTO
+import com.example.pokemon.R
 import com.example.pokemon.commons.BaseFragment
 import com.example.pokemon.commons.ErrorDialog
 import com.example.pokemon.databinding.HomeFragmentBinding
 import com.example.pokemon.home_activity.ui.home.vm.HomeViewModel
+import com.example.pokemon.utils.SharedPokemonVM
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
-class HomeFragment : BaseFragment() {
+class HomeFragment : BaseFragment() , OnCLickListener{
 
-    private val presenter : HomeViewModel by sharedViewModel()
     private var _binding : HomeFragmentBinding? = null
     private val binding get() = _binding!!
+
+    private val presenter : HomeViewModel by sharedViewModel()
+    private val sharedPokemonVM: SharedPokemonVM by sharedViewModel()
 
     private lateinit var adapter: PokemonAdapter
 
@@ -41,7 +47,7 @@ class HomeFragment : BaseFragment() {
                 presenter.fetchPokemons()
             }
             binding.recyclerView.layoutManager = LinearLayoutManager(activity)
-            adapter = PokemonAdapter(it)
+            adapter = PokemonAdapter(it, this)
             binding.recyclerView.adapter = adapter
         })
 
@@ -71,5 +77,10 @@ class HomeFragment : BaseFragment() {
         _binding = HomeFragmentBinding.inflate(inflater, container, false)
         loadObservers()
         return binding.root
+    }
+
+    override fun click(pokemon: PokemonDTO) {
+        sharedPokemonVM.setTransaction(pokemon)
+        findNavController().navigate(R.id.action_navigation_home_to_navigation_detail)
     }
 }

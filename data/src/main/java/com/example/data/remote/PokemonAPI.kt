@@ -7,7 +7,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-interface ITransactionAPI {
+interface PokemonAPI {
     @GET("{url}")
     suspend fun getPokemon(@Path("url") url : String): Response<PokemonDTO>
     @GET("api/v2/pokemon/?limit=40")
