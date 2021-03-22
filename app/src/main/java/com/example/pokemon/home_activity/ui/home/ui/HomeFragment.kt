@@ -19,6 +19,7 @@ class HomeFragment : BaseFragment() , OnCLickListener{
 
     private var _binding : HomeFragmentBinding? = null
     private val binding get() = _binding!!
+    private var first = true
 
     private val presenter : HomeViewModel by sharedViewModel()
     private val sharedPokemonVM: SharedPokemonVM by sharedViewModel()
@@ -44,7 +45,11 @@ class HomeFragment : BaseFragment() , OnCLickListener{
 
         presenter.transactionsList.observe(viewLifecycleOwner, {
             if (it.isNullOrEmpty()) {
-                presenter.fetchPokemons()
+                if (first){
+                    first = false
+                    presenter.fetchPokemons()
+
+                }
             }
             binding.recyclerView.layoutManager = LinearLayoutManager(activity)
             adapter = PokemonAdapter(it, this)
