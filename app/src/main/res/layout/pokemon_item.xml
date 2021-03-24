@@ -39,6 +39,17 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/type_recycler"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent
+"
+                app:layout_constraintStart_toEndOf="@+id/iv_pokemon_sprite"
+                app:layout_constraintTop_toBottomOf="@+id/tv_pokemon_name" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

@@ -26,6 +26,7 @@ class HomeFragment : BaseFragment() , OnCLickListener{
 
     private lateinit var adapter: PokemonAdapter
 
+
     override fun loadObservers() {
 
         presenter.showError.observe(viewLifecycleOwner,{
@@ -51,9 +52,13 @@ class HomeFragment : BaseFragment() , OnCLickListener{
 
                 }
             }
-            binding.recyclerView.layoutManager = LinearLayoutManager(activity)
-            adapter = PokemonAdapter(it, this)
-            binding.recyclerView.adapter = adapter
+
+            context?.let { context ->
+                binding.recyclerView.layoutManager = LinearLayoutManager(activity)
+                adapter = PokemonAdapter(it, this, context)
+                binding.recyclerView.adapter = adapter
+            }
+
         })
 
         presenter.isLoading.observe(viewLifecycleOwner,{
