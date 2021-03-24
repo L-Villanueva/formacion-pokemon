@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.pokemon.commons.BaseFragment
 import com.example.pokemon.databinding.DetailFragmentBinding
 import com.example.pokemon.home_activity.ui.detail.vm.DetailViewModel
@@ -20,6 +21,8 @@ class DetailFragment: BaseFragment() {
     private val sharedPokemonVM: SharedPokemonVM by sharedViewModel()
     private val presenter: DetailViewModel by sharedViewModel()
 
+    private lateinit var adapter: DetailAdapter
+
     override fun loadObservers() {
         presenter.showMessage.observe(viewLifecycleOwner, {
             Toast.makeText(context, it, Toast.LENGTH_LONG).show()
@@ -27,26 +30,26 @@ class DetailFragment: BaseFragment() {
         presenter.showError.observe(viewLifecycleOwner, {
             Toast.makeText(context, it, Toast.LENGTH_LONG).show()
         })
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        _binding = DetailFragmentBinding.inflate(inflater, container, false)
-        loadObservers()
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val pokemon = sharedPokemonVM.transaction.value
-        pokemon?.let { pokemonValue ->
+        sharedPokemonVM.transaction.observe(viewLifecycleOwner, { pokemonValue ->
             binding.tvDetailPokemonName.text = pokemonValue.name
             pokemonValue.sprites?.front_default?.let {
                 Picasso.get()
                         .load(it)
                         .resize(400,400)
                         .into(binding.ivDetailPokemonSprite)
-                presenter.saveUserAvatar(it)
+                binding.ivDetailPokemonSprite.setOnClickListener { _ ->
+                    presenter.saveUserAvatar(it)
+                }
             }
-        }
+            binding.typeRecyclerView.layoutManager = LinearLayoutManager(activity)
+            adapter = DetailAdapter(pokemonValue.types)
+            binding.typeRecyclerView.adapter = adapter
+        })
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        _binding = DetailFragmentBinding.inflate(inflater, container, false)
+        loadObservers()
+        return binding.root
     }
 }

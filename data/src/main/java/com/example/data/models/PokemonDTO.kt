@@ -16,7 +16,8 @@ data class PokemonDTO (
     val order: Long? = null,
     val species: Species? = null,
     val sprites: Sprites? = null,
-    val weight: Long? = null
+    val weight: Long? = null,
+    val types: List<Types>? = null
 )
 
 data class Species (
@@ -36,4 +37,13 @@ data class Sprites (
 
 )
 
+data class Types (
+        val slot: Long,
+        val type: Type? = null
+)
+
+data class Type (
+        val name: String,
+        val url: String? = null
+)
 
