@@ -51,6 +51,7 @@ class DetailFragment: BaseFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = DetailFragmentBinding.inflate(inflater, container, false)
         loadObservers()
+
         return binding.root
     }
 }

@@ -10,6 +10,7 @@ import com.example.data.models.PokemonDTO
 import com.example.data.models.Result
 import com.example.data.remote.PokemonAPI
 import com.example.data.remote.ResultHandler
+import kotlinx.coroutines.*
 
 class PokemonRepository(private val api: PokemonAPI, private val bankDB: BankDatabase, private val dataStoreRepository: DataStoreRepository): BaseRepository() {
 
@@ -18,6 +19,11 @@ class PokemonRepository(private val api: PokemonAPI, private val bankDB: BankDat
     }
     val mPokemonFavorite: LiveData<List<PokemonDTO>> by lazy {
         bankDB.transactionDao().loadFavorites()
+    }
+    fun editPokemon(pokemon: PokemonDTO) {
+        CoroutineScope(Dispatchers.IO).launch {
+            bankDB.transactionDao().edit(pokemon)
+        }
     }
 
     //API

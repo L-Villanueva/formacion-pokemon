@@ -90,8 +90,13 @@ class HomeFragment : BaseFragment() , OnCLickListener {
         return binding.root
     }
 
-    override fun click(pokemon: PokemonDTO) {
+    override fun toDetail(pokemon: PokemonDTO) {
         sharedPokemonVM.setTransaction(pokemon)
         findNavController().navigate(R.id.action_navigation_home_to_navigation_detail)
+    }
+
+    override fun favoriteClick(pokemon: PokemonDTO) {
+        pokemon.favorite = !pokemon.favorite
+        presenter.editPokemon(pokemon)
     }
 }

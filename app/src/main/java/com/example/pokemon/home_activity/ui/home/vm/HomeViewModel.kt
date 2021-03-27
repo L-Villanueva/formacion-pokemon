@@ -10,6 +10,7 @@ import com.example.data.repositories.PokemonRepository
 import com.example.pokemon.commons.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlin.coroutines.coroutineContext
 
 class HomeViewModel(private val repository: PokemonRepository, private val dataStoreRepository: DataStoreRepository) : BaseViewModel() {
 
@@ -44,5 +45,9 @@ class HomeViewModel(private val repository: PokemonRepository, private val dataS
             }
             _isLoading.postValue(false)
         }
+    }
+    fun editPokemon(pokemon: PokemonDTO) {
+
+        repository.editPokemon(pokemon)
     }
 }

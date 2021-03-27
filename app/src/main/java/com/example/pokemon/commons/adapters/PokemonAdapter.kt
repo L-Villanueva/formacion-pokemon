@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.data.models.PokemonDTO
+import com.example.pokemon.R
 import com.example.pokemon.databinding.PokemonItemBinding
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.CoroutineScope
@@ -26,20 +27,30 @@ class PokemonAdapter(private var mValues: List<PokemonDTO>?, private val setOnCl
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         mValues?.let {
             holder.tvName.text = it[position].name.capitalize()
+            holder.weight.text = it[position].weight.toString()
             CoroutineScope(Dispatchers.Main).launch {
                 Picasso.get()
                         .load(it[position].sprites?.front_default)
                         .resize(200,200)
                         .into(holder.image)
             }
-            holder.itemView.setOnClickListener { _ ->
-                setOnClick.click(it[position])
+            holder.image.setOnClickListener { _ ->
+                setOnClick.toDetail(it[position])
             }
             val layout = LinearLayoutManager(context)
             layout.orientation = RecyclerView.HORIZONTAL
             holder.types.layoutManager = layout
             adapter = DetailAdapter(it[position].types)
             holder.types.adapter = adapter
+
+            if (it[position].favorite) {
+                holder.favorite.setImageResource(R.drawable.ic_favorite)
+            } else {
+                holder.favorite.setImageResource(R.drawable.ic_not_favorite)
+            }
+            holder.favorite.setOnClickListener { _ ->
+                setOnClick.favoriteClick(it[position])
+            }
         } ?: clearList()
     }
 
@@ -51,6 +62,8 @@ class PokemonAdapter(private var mValues: List<PokemonDTO>?, private val setOnCl
         val tvName = binding.tvPokemonName
         val image = binding.ivPokemonSprite
         val types = binding.typeRecycler
+        val favorite = binding.ivFavorite
+        val weight = binding.tvPokemonWeight
     }
 
     private fun clearList() {
@@ -61,5 +74,6 @@ class PokemonAdapter(private var mValues: List<PokemonDTO>?, private val setOnCl
 }
 
 interface OnCLickListener {
-    fun click(pokemon: PokemonDTO)
+    fun toDetail(pokemon: PokemonDTO)
+    fun favoriteClick(pokemon: PokemonDTO)
 }

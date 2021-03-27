@@ -79,8 +79,11 @@ class ProfileFragment : BaseFragment(), OnCLickListener {
         return binding.root
     }
 
-    override fun click(pokemon: PokemonDTO) {
+    override fun toDetail(pokemon: PokemonDTO) {
         sharedPokemonVM.setTransaction(pokemon)
         findNavController().navigate(R.id.action_navigation_profile_to_navigation_detail)
+    }
+
+    override fun favoriteClick(pokemon: PokemonDTO) {
     }
 }
