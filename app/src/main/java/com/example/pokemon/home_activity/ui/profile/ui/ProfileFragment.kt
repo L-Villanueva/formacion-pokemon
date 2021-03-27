@@ -5,17 +5,27 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.data.models.PokemonDTO
+import com.example.pokemon.R
 import com.example.pokemon.commons.BaseFragment
+import com.example.pokemon.commons.adapters.OnCLickListener
+import com.example.pokemon.commons.adapters.PokemonAdapter
 import com.example.pokemon.databinding.ProfileFragmentBinding
 import com.example.pokemon.home_activity.ui.profile.vm.ProfileViewModel
+import com.example.pokemon.utils.SharedPokemonVM
 import com.squareup.picasso.Picasso
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
-class ProfileFragment : BaseFragment() {
+class ProfileFragment : BaseFragment(), OnCLickListener {
 
     private val presenter: ProfileViewModel by sharedViewModel()
     private var _binding: ProfileFragmentBinding? = null
     private val binding get() = _binding!!
+
+    private val sharedPokemonVM: SharedPokemonVM by sharedViewModel()
+    private lateinit var adapter: PokemonAdapter
 
     override fun loadObservers() {
         presenter.userName.observe(viewLifecycleOwner, {
@@ -34,13 +44,21 @@ class ProfileFragment : BaseFragment() {
 
         presenter.userAvatar.observe(viewLifecycleOwner, {
             if (it.isNullOrEmpty()) {
-                binding.ivProfileAvatarSprite.visibility = View.GONE
+                binding.ivProfileAvatarSprite.visibility = View.VISIBLE
+                binding.ivProfileAvatarSprite.setImageResource(R.drawable.ic_user)
+
             } else {
                 binding.ivProfileAvatarSprite.visibility = View.VISIBLE
                 Picasso.get()
                         .load(it)
-                        .resize(400,400)
                         .into(binding.ivProfileAvatarSprite)
+            }
+        })
+        presenter.transactionsList.observe(viewLifecycleOwner, {
+            context?.let { context ->
+                binding.recyclerViewProfile.layoutManager = LinearLayoutManager(activity)
+                adapter = PokemonAdapter(it, this, context)
+                binding.recyclerViewProfile.adapter = adapter
             }
         })
     }
@@ -59,5 +77,10 @@ class ProfileFragment : BaseFragment() {
         }
 
         return binding.root
+    }
+
+    override fun click(pokemon: PokemonDTO) {
+        sharedPokemonVM.setTransaction(pokemon)
+        findNavController().navigate(R.id.action_navigation_profile_to_navigation_detail)
     }
 }

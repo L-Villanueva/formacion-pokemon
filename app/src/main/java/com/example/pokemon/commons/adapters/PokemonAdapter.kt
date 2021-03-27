@@ -1,32 +1,29 @@
-package com.example.pokemon.home_activity.ui.home.ui
+package com.example.pokemon.commons.adapters
 
 import android.content.Context
-import android.text.Layout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.data.models.PokemonDTO
-import com.example.pokemon.R
-import com.example.pokemon.commons.DetailAdapter
 import com.example.pokemon.databinding.PokemonItemBinding
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class PokemonAdapter(private var mValues: List<PokemonDTO>? , private val setOnClick: OnCLickListener, private val context: Context): RecyclerView.Adapter<PokemonAdapter.ViewHolder>() {
+class PokemonAdapter(private var mValues: List<PokemonDTO>?, private val setOnClick: OnCLickListener, private val context: Context): RecyclerView.Adapter<PokemonAdapter.ViewHolder>() {
 
     private lateinit var binding: PokemonItemBinding
     private lateinit var adapter: DetailAdapter
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PokemonAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         binding = PokemonItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding.root)
     }
 
-    override fun onBindViewHolder(holder: PokemonAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         mValues?.let {
             holder.tvName.text = it[position].name.capitalize()
             CoroutineScope(Dispatchers.Main).launch {

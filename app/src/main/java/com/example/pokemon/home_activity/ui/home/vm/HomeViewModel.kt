@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 
 class HomeViewModel(private val repository: PokemonRepository, private val dataStoreRepository: DataStoreRepository) : BaseViewModel() {
 
-    val transactionsList: LiveData<List<PokemonDTO>> = repository.mTransactions
+    val transactionsList: LiveData<List<PokemonDTO>> = repository.mPokemon
     val nextUrl: LiveData<String> = dataStoreRepository.next.asLiveData()
     val previousUrl: LiveData<String> = dataStoreRepository.previous.asLiveData()
 

@@ -10,12 +10,14 @@ import com.example.data.models.PokemonDTO
 import com.example.pokemon.R
 import com.example.pokemon.commons.BaseFragment
 import com.example.pokemon.commons.ErrorDialog
+import com.example.pokemon.commons.adapters.OnCLickListener
+import com.example.pokemon.commons.adapters.PokemonAdapter
 import com.example.pokemon.databinding.HomeFragmentBinding
 import com.example.pokemon.home_activity.ui.home.vm.HomeViewModel
 import com.example.pokemon.utils.SharedPokemonVM
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
-class HomeFragment : BaseFragment() , OnCLickListener{
+class HomeFragment : BaseFragment() , OnCLickListener {
 
     private var _binding : HomeFragmentBinding? = null
     private val binding get() = _binding!!
@@ -26,16 +28,15 @@ class HomeFragment : BaseFragment() , OnCLickListener{
 
     private lateinit var adapter: PokemonAdapter
 
-
     override fun loadObservers() {
 
         presenter.showError.observe(viewLifecycleOwner,{
             errorDialog = activity?.let { activity ->
                 ErrorDialog(
                     activity,
-                    "getString(R.string.alert)",
+                    getString(R.string.alert),
                     it,
-                    "getString(R.string.close)"
+                    getString(R.string.close)
                 ) {
                     errorDialog?.dismiss()
                 }

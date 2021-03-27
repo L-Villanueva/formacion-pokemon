@@ -13,8 +13,11 @@ import com.example.data.remote.ResultHandler
 
 class PokemonRepository(private val api: PokemonAPI, private val bankDB: BankDatabase, private val dataStoreRepository: DataStoreRepository): BaseRepository() {
 
-    val mTransactions: LiveData<List<PokemonDTO>> by lazy {
+    val mPokemon: LiveData<List<PokemonDTO>> by lazy {
         bankDB.transactionDao().load()
+    }
+    val mPokemonFavorite: LiveData<List<PokemonDTO>> by lazy {
+        bankDB.transactionDao().loadFavorites()
     }
 
     //API

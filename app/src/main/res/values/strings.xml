@@ -4,4 +4,6 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_profile">Profile</string>
     <string name="title_detail">Detail</string>
+    <string name="alert">alert</string>
+    <string name="close">close</string>
 </resources>

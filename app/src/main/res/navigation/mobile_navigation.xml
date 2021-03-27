@@ -21,7 +21,11 @@
         android:id="@+id/navigation_profile"
         android:name="com.example.pokemon.home_activity.ui.profile.ui.ProfileFragment"
         android:label="@string/title_profile"
-        tools:layout="@layout/profile_fragment" />
+        tools:layout="@layout/profile_fragment" >
+        <action
+            android:id="@+id/action_navigation_profile_to_navigation_detail"
+            app:destination="@id/navigation_detail" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_detail"

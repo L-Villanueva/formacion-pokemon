@@ -17,7 +17,8 @@ data class PokemonDTO (
     val species: Species? = null,
     val sprites: Sprites? = null,
     val weight: Long? = null,
-    val types: List<Types>? = null
+    val types: List<Types>? = null,
+    var favorite: Boolean = false
 )
 
 data class Species (

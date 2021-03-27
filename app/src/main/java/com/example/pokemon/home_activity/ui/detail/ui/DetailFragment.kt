@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.pokemon.commons.BaseFragment
-import com.example.pokemon.commons.DetailAdapter
+import com.example.pokemon.commons.adapters.DetailAdapter
 import com.example.pokemon.databinding.DetailFragmentBinding
 import com.example.pokemon.home_activity.ui.detail.vm.DetailViewModel
 import com.example.pokemon.utils.SharedPokemonVM

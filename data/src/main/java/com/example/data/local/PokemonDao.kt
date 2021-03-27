@@ -18,4 +18,7 @@ interface PokemonDao {
 
     @Query("DELETE FROM `$TABLE_TRANSACTIONS`")
     fun deleteAll()
+
+    @Query("SELECT * FROM `$TABLE_TRANSACTIONS` WHERE favorite")
+    fun loadFavorites(): LiveData<List<PokemonDTO>>
 }
