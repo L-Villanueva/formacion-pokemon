@@ -6,4 +6,6 @@
     <string name="title_detail">Detail</string>
     <string name="alert">alert</string>
     <string name="close">close</string>
+    <string name="pokemon_types">Pokemon Types:</string>
+    <string name="pokemon_base_stats">Pokemon Base Stats:</string>
 </resources>

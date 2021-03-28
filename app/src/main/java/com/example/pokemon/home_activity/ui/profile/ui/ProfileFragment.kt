@@ -13,6 +13,7 @@ import com.example.pokemon.commons.BaseFragment
 import com.example.pokemon.commons.adapters.OnCLickListener
 import com.example.pokemon.commons.adapters.PokemonAdapter
 import com.example.pokemon.databinding.ProfileFragmentBinding
+import com.example.pokemon.home_activity.ui.HomeActivity
 import com.example.pokemon.home_activity.ui.profile.vm.ProfileViewModel
 import com.example.pokemon.utils.SharedPokemonVM
 import com.squareup.picasso.Picasso
@@ -66,17 +67,28 @@ class ProfileFragment : BaseFragment(), OnCLickListener {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = ProfileFragmentBinding.inflate(inflater, container, false)
         loadObservers()
-        binding.buttonSave.setOnClickListener {
 
-            binding.tvUserName.text.toString().let {
-                presenter.saveUsername(it)
-            }
-            binding.tvUserSurname.text.toString().let {
-                presenter.saveUsersurname(it)
+        val mainActivity: HomeActivity? = activity as HomeActivity?
+        mainActivity?.fab?.let { fab ->
+
+            fab.setImageResource(android.R.drawable.ic_menu_save)
+            fab.setOnClickListener {
+                binding.tvUserName.text.toString().let {
+                    presenter.saveUsername(it)
+                }
+                binding.tvUserSurname.text.toString().let {
+                    presenter.saveUsersurname(it)
+                }
             }
         }
 
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+
     }
 
     override fun toDetail(pokemon: PokemonDTO) {

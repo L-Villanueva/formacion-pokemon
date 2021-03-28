@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.pokemon.commons.BaseFragment
 import com.example.pokemon.commons.adapters.DetailAdapter
 import com.example.pokemon.databinding.DetailFragmentBinding
@@ -22,9 +23,11 @@ class DetailFragment: BaseFragment() {
     private val sharedPokemonVM: SharedPokemonVM by sharedViewModel()
     private val presenter: DetailViewModel by sharedViewModel()
 
-    private lateinit var adapter: DetailAdapter
+    private lateinit var typeAdapter: DetailAdapter
+    private lateinit var statsAdapter: StatsAdapter
 
     override fun loadObservers() {
+
         presenter.showMessage.observe(viewLifecycleOwner, {
             Toast.makeText(context, it, Toast.LENGTH_LONG).show()
         })
@@ -32,7 +35,7 @@ class DetailFragment: BaseFragment() {
             Toast.makeText(context, it, Toast.LENGTH_LONG).show()
         })
         sharedPokemonVM.transaction.observe(viewLifecycleOwner, { pokemonValue ->
-            binding.tvDetailPokemonName.text = pokemonValue.name
+            binding.tvDetailPokemonName.text = pokemonValue.name.capitalize()
             pokemonValue.sprites?.front_default?.let {
                 Picasso.get()
                         .load(it)
@@ -42,15 +45,23 @@ class DetailFragment: BaseFragment() {
                     presenter.saveUserAvatar(it)
                 }
             }
-            binding.typeRecyclerView.layoutManager = LinearLayoutManager(activity)
-            adapter = DetailAdapter(pokemonValue.types)
-            binding.typeRecyclerView.adapter = adapter
+            val layout = LinearLayoutManager(context)
+            layout.orientation = RecyclerView.HORIZONTAL
+            binding.typeRecyclerView.layoutManager = layout
+            typeAdapter = DetailAdapter(pokemonValue.types)
+            binding.typeRecyclerView.adapter = typeAdapter
+
+            binding.statsRecyclerView.layoutManager = LinearLayoutManager(context)
+            statsAdapter = StatsAdapter(pokemonValue.stats)
+            binding.statsRecyclerView.adapter = statsAdapter
+
         })
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = DetailFragmentBinding.inflate(inflater, container, false)
         loadObservers()
+
 
         return binding.root
     }
